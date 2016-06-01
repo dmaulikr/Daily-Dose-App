@@ -15,6 +15,9 @@ class WorkoutTableViewCell: UITableViewCell {
     @IBOutlet var timerLabel: UILabel!
     //@IBOutlet var thumbnailImageView: UIImageView!
     @IBOutlet var numberLabel: UILabel!
+    @IBOutlet weak var toolbarStackView: UIStackView!
+    @IBOutlet weak var toolbarStackViewHeightConstraint: NSLayoutConstraint!
+    
     var timer = NSTimer()
     var time = 6
     

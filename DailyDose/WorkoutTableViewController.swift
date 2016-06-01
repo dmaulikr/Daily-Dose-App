@@ -22,7 +22,6 @@ class WorkoutTableViewController: UITableViewController {
     let prefs = NSUserDefaults.standardUserDefaults()
 
     override func viewDidLoad() {
-        //FontBlaster.blast()
         let navBar = self.navigationController?.navigationBar
         navBar?.barStyle = .Black
 
@@ -90,18 +89,10 @@ class WorkoutTableViewController: UITableViewController {
         cell.nameLabel.text = workoutExercises[indexPath.row].workoutName
         cell.nameLabel.adjustsFontSizeToFitWidth = true;
         cell.muscleLabel.text = workoutExercises[indexPath.row].primaryMuscle
-        //cell.thumbnailImageView?.image = UIImage(named: imageNames[indexPath.row])
-        //cell.thumbnailImageView?.layer.cornerRadius = 15
-        //cell.thumbnailImageView?.layer.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0).CGColor
 
-        //cell.thumbnailImageView?.layer.borderColor = UIColor.blackColor().CGColor
-        //cell.thumbnailImageView?.layer.borderWidth = 0.5
-        var numberLabelString = (String(indexPath.row+1) + ".")
-        if(indexPath.row == 0){
-            numberLabelString = " " + numberLabelString + " "
-        }
+        let numberLabelString = (String(indexPath.row+1) + ".")
+
         cell.numberLabel.text = numberLabelString
-        cell.numberLabel.font = UIFont(name: "Noteworthy", size: 25)
         
         cell.numberLabel.textColor = UIColor(red: 40.0/255.0, green: 110.0/255.0, blue: 155.0/255.0, alpha: 1.0)
         cell.timerLabel.alpha = 0.0
@@ -168,7 +159,7 @@ class WorkoutTableViewController: UITableViewController {
     }
     
     func fillWorkouts(){
-        var allWorkoutArrays = [chestWorkouts,bicepWorkouts,tricepWorkouts,shoulderWorkouts,legWorkouts,abWorkouts,cardioWorkouts]
+        var allWorkoutArrays = [bicepWorkouts,tricepWorkouts,chestWorkouts,shoulderWorkouts,legWorkouts,abWorkouts,cardioWorkouts]
         
         //check if app is first time running (if nsuserdefaults is null for each muscle
         //if it is, generate new workoutExercises and store in NSUserDefaults
@@ -198,6 +189,17 @@ class WorkoutTableViewController: UITableViewController {
             cell.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0);
         }
             
+    }
+    
+    func updatedLoadExercises(){
+        //needs to load exercises if most recent time was today, otherwise generate new
+        //and save into data
+        if(!NSUserDefaults.standardUserDefaults().boolForKey("hasLaunchedOnce")){
+            
+        }
+        if(nextDay() == "today"){
+            //load exercises
+        }
     }
     
     func fillChestExercises(){
