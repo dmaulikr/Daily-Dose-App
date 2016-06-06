@@ -14,6 +14,7 @@ class Exercise {
     var secondaryMuscle = ""
     var exerciseDescription = ""
     var workoutVideoLink = ""
+    var expanded = false
     
     init(workoutName: String, primaryMuscle: String){
         self.workoutName = workoutName

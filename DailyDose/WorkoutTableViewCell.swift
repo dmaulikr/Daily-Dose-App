@@ -13,7 +13,6 @@ class WorkoutTableViewCell: UITableViewCell {
     @IBOutlet var muscleLabel: UILabel!
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var timerLabel: UILabel!
-    //@IBOutlet var thumbnailImageView: UIImageView!
     @IBOutlet var numberLabel: UILabel!
     @IBOutlet weak var toolbarStackView: UIStackView!
     @IBOutlet weak var toolbarStackViewHeightConstraint: NSLayoutConstraint!
@@ -23,14 +22,36 @@ class WorkoutTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        toolbarStackViewHeightConstraint.constant = 0.0
+        toolbarStackView.hidden = true
     }
 
+    @IBAction func startButtonTouched(sender: AnyObject) {
+        timerStarted()
+    }
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        
+        let constant: CGFloat = selected ? 30.0 : 0.0
+        
+        //print("Setting constant to \(constant) - Animated: \(animated)")
+        
+        if !animated {
+            toolbarStackViewHeightConstraint.constant = constant
+            toolbarStackView.hidden = !selected
+            
+            return
+        }
+        
+        UIView.animateWithDuration(0.3, delay: 0.0, options: [.AllowUserInteraction, .BeginFromCurrentState], animations: {
+            self.toolbarStackViewHeightConstraint.constant = constant
+            self.layoutIfNeeded()
+            }, completion: { completed in
+                self.toolbarStackView.hidden = !selected
+        })
     }
+    
     func timerStarted(){
         self.timerLabel.text = String(time)
         self.timerLabel.alpha = 1.0

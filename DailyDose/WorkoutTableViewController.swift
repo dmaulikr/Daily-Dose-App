@@ -26,6 +26,11 @@ class WorkoutTableViewController: UITableViewController {
         navBar?.barStyle = .Black
 
         super.viewDidLoad()
+        
+        clearsSelectionOnViewWillAppear = false
+
+        //tableView.rowHeight = UITableViewAutomaticDimension
+        
         self.title = "Daily Dose"
         navBar?.barTintColor = UIColor(red: 40.0/255.0, green: 110.0/255.0, blue: 175.0/255.0, alpha: 1.0)
         navBar?.tintColor = UIColor.whiteColor()
@@ -64,23 +69,6 @@ class WorkoutTableViewController: UITableViewController {
         self.tableView.tableFooterView = UIView(frame: CGRectZero)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 7
-    }
-
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cellIdentifier = "workoutCell"
@@ -96,10 +84,53 @@ class WorkoutTableViewController: UITableViewController {
         
         cell.numberLabel.textColor = UIColor(red: 40.0/255.0, green: 110.0/255.0, blue: 155.0/255.0, alpha: 1.0)
         cell.timerLabel.alpha = 0.0
-
+        
         return cell
     }
     
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
+    {
+        let exercise = workoutExercises[indexPath.row]
+        if exercise.expanded{
+            return UITableViewAutomaticDimension
+        }
+        else{
+            return 57
+        }
+    }
+    
+    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        var indexPathToReturn: NSIndexPath?
+        let exercise = workoutExercises[indexPath.row]
+        
+        //let cell = tableView.cellForRowAtIndexPath(indexPath) as! WorkoutTableViewCell
+        
+        if exercise.expanded {
+            exercise.expanded = false
+            
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            self.tableView(tableView, didDeselectRowAtIndexPath: indexPath)
+        } else {
+            exercise.expanded = true
+            //cell.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+            indexPathToReturn = indexPath
+        }
+        
+        workoutExercises[indexPath.row] = exercise
+        
+        return indexPathToReturn
+    }
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
+    
+    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
+    
+    /*
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         
@@ -124,6 +155,7 @@ class WorkoutTableViewController: UITableViewController {
         self.presentViewController(optionMenu, animated: true, completion: nil)
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
     }
+ */
     
     func nextDay() -> String{
         let calendar = NSCalendar.currentCalendar()
@@ -186,7 +218,7 @@ class WorkoutTableViewController: UITableViewController {
             cell.timerLabel.alpha = 0.0
             cell.accessoryType = .None
             self.workoutIsCompleted[indexPath] = false
-            cell.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0);
+            cell.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         }
             
     }
@@ -285,5 +317,22 @@ class WorkoutTableViewController: UITableViewController {
         let cardio7 = Exercise(workoutName: "Knee-Ups", primaryMuscle: "Cardio")
         
         self.cardioWorkouts = [cardio1, cardio2, cardio3, cardio4, cardio5, cardio6, cardio7]
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - Table view data source
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return 7
     }
 }
