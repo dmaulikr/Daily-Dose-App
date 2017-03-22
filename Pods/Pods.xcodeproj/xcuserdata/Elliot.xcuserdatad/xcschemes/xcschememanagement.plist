@@ -4,15 +4,25 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>DailyDose.xcscheme</key>
+		<key>BubbleTransition.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>0</integer>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Daily Dose.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>8BC619851CDE500D00A84B62</key>
+		<key>2C93C29A9409146486395475D7939CAB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>38830187D9E171E7B43047ED06A08ADC</key>
 		<dict>
 			<key>primary</key>
 			<true/>

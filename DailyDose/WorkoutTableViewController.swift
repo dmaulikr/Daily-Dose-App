@@ -19,61 +19,90 @@ class WorkoutTableViewController: UITableViewController {
     var cardioWorkouts = [Exercise]()
     var workoutExercises = [Exercise]()
     var workoutIsCompleted = [false,false,false,false,false,false,false]
-    let prefs = NSUserDefaults.standardUserDefaults()
+    let prefs = UserDefaults.standard
+    var time = 6
+    let timeStart = 6
+    var timer = Timer()
+    var isPaused = false
 
+    
+    @IBOutlet weak var stopButton: UIButton!
+    @IBOutlet weak var pauseButton: UIButton!
+    @IBOutlet weak var timerLabel: UILabel!
+    @IBOutlet weak var workoutInProgress: UILabel!
+    
+    @IBAction func didPressCloseButton(sender:AnyObject){
+        let alertController = UIAlertController(title: "Quitting Early?", message: "If you quit now, you'll lose all your progress on this workout!", preferredStyle: .alert)
+        let indexInProgress = prefs.integer(forKey: "indexInProgress")
+
+        let cancelAction = UIAlertAction(title: "Quit", style: .destructive) { action in
+            if(indexInProgress != 8)
+            {
+                self.stopTimer(indexInProgress)
+            }
+            self.dismiss(animated: true, completion: nil)
+        }
+        alertController.addAction(cancelAction)
+        
+        let OKAction = UIAlertAction(title: "Stay", style: .default) { action in
+            
+        }
+        alertController.addAction(OKAction)
+        
+        self.present(alertController, animated: true) {
+            // ...
+        }
+    }
+    @IBAction func didPressPauseButton(sender:AnyObject){
+        let indexInProgress = prefs.integer(forKey: "indexInProgress")
+
+        if(isPaused == false && !(indexInProgress==8)){
+            timer.invalidate()
+            self.pauseButton .setTitle("Start", for: UIControlState.normal)
+            isPaused = true
+        }
+        else if(isPaused == true && !(indexInProgress==8)){
+            self.startTimer(indexInProgress)
+            isPaused = false
+            self.pauseButton .setTitle("Pause", for: UIControlState.normal)
+
+        }
+    }
+    @IBAction func didPressStopButton(sender:AnyObject){
+        let indexInProgress = prefs.integer(forKey: "indexInProgress")
+        if(indexInProgress != 8)
+        {
+            self.stopTimer(indexInProgress)
+        }
+    }
+    
     override func viewDidLoad() {
-        let navBar = self.navigationController?.navigationBar
-        navBar?.barStyle = .Black
+        //let navBar = self.navigationController?.navigationBar
+        //navBar?.barStyle = .black
 
         super.viewDidLoad()
         
-        clearsSelectionOnViewWillAppear = false
+        //clearsSelectionOnViewWillAppear = false
 
         //tableView.rowHeight = UITableViewAutomaticDimension
         
+        self.workoutInProgress.alpha = 0.0
+        self.timerLabel.alpha = 0.0
+        self.stopButton.alpha = 0.0
+        self.pauseButton.alpha = 0.0
+        
         self.title = "Daily Dose"
-        navBar?.barTintColor = UIColor(red: 40.0/255.0, green: 110.0/255.0, blue: 175.0/255.0, alpha: 1.0)
-        navBar?.tintColor = UIColor.whiteColor()
-        
-        navBar?.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
-        
-        var streakNum = prefs.integerForKey("streakNumber")
         
         fillAllExercises()
         fillWorkouts()
-
-        if(self.nextDay() == "true"){
-            streakNum+=1
-            prefs.setValue(streakNum, forKey: "streakNumber")
-        }
-        else if(self.nextDay() == "today"){
-            //do nothing.
-            prefs.setValue(streakNum, forKey: "streakNumber")
-        }
-        else{
-            streakNum = 1
-            prefs.setValue(streakNum, forKey: "streakNumber")
-        }
-        
-        let streakItem = UIBarButtonItem(title: "Streak: " + String(streakNum),
-                                       style: UIBarButtonItemStyle.Plain,
-                                       target: nil,
-                                       action: nil)
-        streakItem.enabled = false
-        
-        
-        self.navigationItem.rightBarButtonItem = streakItem
-        self.navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-        
-
-        self.tableView.tableFooterView = UIView(frame: CGRectZero)
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         
         let cellIdentifier = "workoutCell"
 
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! WorkoutTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! WorkoutTableViewCell
         cell.nameLabel.text = workoutExercises[indexPath.row].workoutName
         cell.nameLabel.adjustsFontSizeToFitWidth = true;
         cell.muscleLabel.text = workoutExercises[indexPath.row].primaryMuscle
@@ -82,100 +111,89 @@ class WorkoutTableViewController: UITableViewController {
 
         cell.numberLabel.text = numberLabelString
         
-        cell.numberLabel.textColor = UIColor(red: 40.0/255.0, green: 110.0/255.0, blue: 155.0/255.0, alpha: 1.0)
+        cell.numberLabel.textColor = UIColor(red: 74.0/255.0, green: 133.0/255.0, blue: 187.0/255.0, alpha: 1.0)
         cell.timerLabel.alpha = 0.0
+        
+        if(indexPath.row % 2) == 0
+        {
+            cell.backgroundColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 1.0)
+
+        }
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
-    {
-        let exercise = workoutExercises[indexPath.row]
-        if exercise.expanded{
-            return UITableViewAutomaticDimension
-        }
-        else{
-            return 57
-        }
-    }
-    
-    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        var indexPathToReturn: NSIndexPath?
-        let exercise = workoutExercises[indexPath.row]
-        
-        //let cell = tableView.cellForRowAtIndexPath(indexPath) as! WorkoutTableViewCell
-        
-        if exercise.expanded {
-            exercise.expanded = false
-            
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
-            self.tableView(tableView, didDeselectRowAtIndexPath: indexPath)
-        } else {
-            exercise.expanded = true
-            //cell.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-            indexPathToReturn = indexPath
-        }
-        
-        workoutExercises[indexPath.row] = exercise
-        
-        return indexPathToReturn
-    }
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.beginUpdates()
         tableView.endUpdates()
-    }
-    
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.beginUpdates()
-        tableView.endUpdates()
-    }
-    
-    /*
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        
-        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        optionMenu.addAction(cancelAction)
-
-        var title = ""
-        
-        if(self.workoutIsCompleted[indexPath.row] == false){
-            title = "Start Timer"
+        let prefs = UserDefaults.standard
+        let indexInProgress = prefs.integer(forKey: "indexInProgress")
+        if(indexInProgress != 8){
+            self.tableView.deselectRow(at: indexPath, animated: false)
+            return
         }
-        else{
-            title = "Stop Timer"
+        
+        let tableIndexPath = IndexPath(row: indexPath.row, section: 0)
+        let cell = tableView.cellForRow(at: tableIndexPath) as! WorkoutTableViewCell
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
+            // do nothing, exit sheet.
         }
-        let isVisitedAction = UIAlertAction(title: title, style: .Default, handler: {
-            (action:UIAlertAction!)->Void in
+        alertController.addAction(cancelAction)
+        
+        var startAction = UIAlertAction(title: "Start", style: .default) { action in
             self.startTimer(indexPath.row)
-        })
-        optionMenu.addAction(isVisitedAction)
+        }
+        if(workoutIsCompleted[indexPath.row]){
+            startAction = UIAlertAction(title: "Reset", style: .default) { action in
+                self.workoutIsCompleted[indexPath.row] = false
+                if(indexPath.row % 2 == 1){
+                    cell.backgroundColor = UIColor.white
+                }
+                else{
+                    cell.backgroundColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha:  1.0)
+                }
+                cell.accessoryType = .none
+            }
+        }
+        alertController.addAction(startAction)
         
-        self.presentViewController(optionMenu, animated: true, completion: nil)
-        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        let instructionsAction = UIAlertAction(title: "Instructions", style: .default) { action in
+            
+        }
+        alertController.addAction(instructionsAction)
+        
+        self.present(alertController, animated: true) {
+            self.tableView.deselectRow(at: indexPath, animated: false)
+        }
     }
- */
+    
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
     
     func nextDay() -> String{
-        let calendar = NSCalendar.currentCalendar()
+        let calendar = Calendar.current
         
-        if(!NSUserDefaults.standardUserDefaults().boolForKey("hasLaunchedOnce")){
-             NSUserDefaults.standardUserDefaults().setObject(NSDate(), forKey:"lastDate")
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey:"hasLaunchedOnce")
-            NSUserDefaults.standardUserDefaults().synchronize()
+        if(!UserDefaults.standard.bool(forKey: "hasLaunchedOnce")){
+             UserDefaults.standard.set(Date(), forKey:"lastDate")
+            UserDefaults.standard.set(true, forKey:"hasLaunchedOnce")
+            UserDefaults.standard.synchronize()
         }
-        let lastDate = NSUserDefaults.standardUserDefaults().objectForKey("lastDate") as! NSDate!
+        let lastDate = UserDefaults.standard.object(forKey: "lastDate") as! Date!
 
-        if(calendar.isDateInYesterday(lastDate) == true){
-            NSUserDefaults.standardUserDefaults().setObject(NSDate(), forKey:"lastDate")
+        if(calendar.isDateInYesterday(lastDate!) == true){
+            UserDefaults.standard.set(Date(), forKey:"lastDate")
             return "true"
         }
-        else if(calendar.isDateInToday(lastDate)==true){
-            NSUserDefaults.standardUserDefaults().setObject(NSDate(), forKey:"lastDate")
+        else if(calendar.isDateInToday(lastDate!)==true){
+            UserDefaults.standard.set(Date(), forKey:"lastDate")
             return "today"
         }
-        NSUserDefaults.standardUserDefaults().setObject(NSDate(), forKey:"lastDate")
+        UserDefaults.standard.set(Date(), forKey:"lastDate")
 
         return "false"
     }
@@ -205,28 +223,51 @@ class WorkoutTableViewController: UITableViewController {
         //else check if
     }
     
-    func startTimer(indexPath: Int){
-        let tableIndexPath = NSIndexPath(forRow: indexPath, inSection: 0)
-
-        let cell = tableView.cellForRowAtIndexPath(tableIndexPath) as! WorkoutTableViewCell
-        if(self.workoutIsCompleted[indexPath] == false){
-            self.workoutIsCompleted[indexPath] = true
-            cell.timerStarted()
+    func startTimer(_ indexPath: Int){
+        let tableIndexPath = IndexPath(row: indexPath, section: 0)
+        let prefs = UserDefaults.standard
+        let indexInProgress = prefs.integer(forKey: "indexInProgress")
+        
+        let cell = tableView.cellForRow(at: tableIndexPath) as! WorkoutTableViewCell
+        if(self.workoutIsCompleted[indexPath] == false && indexInProgress == 8){
+            //cell.timerLabel.alpha = 1.0
+            //self.workoutIsCompleted[indexPath] = true
+            timerStarted()
+            self.workoutInProgress.text = cell.nameLabel.text
+            prefs.setValue(indexPath, forKey: "indexInProgress")
+            prefs.synchronize()
         }
-        else{
-            cell.timerStopped()
-            cell.timerLabel.alpha = 0.0
-            cell.accessoryType = .None
+        else if(self.isPaused){
+            timerStarted()
+        }
+    }
+    func stopTimer (_ indexPath: Int){
+        let tableIndexPath = IndexPath(row: indexPath, section: 0)
+        let prefs = UserDefaults.standard
+        let cell = tableView.cellForRow(at: tableIndexPath) as! WorkoutTableViewCell
+        let indexInProgress = prefs.integer(forKey: "indexInProgress")
+        
+        if(indexInProgress == indexPath || self.workoutIsCompleted[indexPath] == true){
+            timerStopped()
+            //cell.timerLabel.alpha = 0.0
+            cell.accessoryType = .none
             self.workoutIsCompleted[indexPath] = false
-            cell.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+            if(indexPath % 2 == 0){
+                cell.backgroundColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha:  1.0)
+            }
+            else
+            {
+                cell.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+            }
+            prefs.setValue(8, forKey: "indexInProgress")
+            prefs.synchronize()
         }
-            
     }
     
     func updatedLoadExercises(){
         //needs to load exercises if most recent time was today, otherwise generate new
         //and save into data
-        if(!NSUserDefaults.standardUserDefaults().boolForKey("hasLaunchedOnce")){
+        if(!UserDefaults.standard.bool(forKey: "hasLaunchedOnce")){
             
         }
         if(nextDay() == "today"){
@@ -326,13 +367,62 @@ class WorkoutTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 7
+    }
+    
+    func timerStarted(){
+        self.timerLabel.text = String(time)
+        
+        self.timerLabel.alpha = 1.0
+        self.workoutInProgress.alpha = 1.0
+        self.pauseButton.alpha = 1.0
+        self.stopButton.alpha = 1.0
+        
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.countUp), userInfo: nil, repeats: true)
+    }
+    func timerStopped(){
+        timer.invalidate()
+        
+        self.timerLabel.alpha = 0.0
+        self.workoutInProgress.alpha = 0.0
+        self.pauseButton.alpha = 0.0
+        self.stopButton.alpha = 0.0
+        
+        time = timeStart
+        prefs.setValue(8, forKey: "indexInProgress")
+        prefs.synchronize()
+    }
+    func countUp() {
+        
+        if(time<=1){
+            self.workoutCompleted()
+        }
+        time-=1
+        self.timerLabel.text = String(time)
+    }
+    func workoutCompleted(){
+        timer.invalidate()
+        time = timeStart
+        let indexInProgress = prefs.integer(forKey: "indexInProgress")
+        let tableIndexPath = IndexPath(row: indexInProgress, section: 0)
+        
+        let cell = tableView.cellForRow(at: tableIndexPath) as! WorkoutTableViewCell
+        self.timerLabel.alpha = 0.0
+        self.workoutInProgress.alpha = 0.0
+        self.pauseButton.alpha = 0.0
+        self.stopButton.alpha = 0.0
+        
+        cell.backgroundColor = UIColor(red: 205.0/255.0, green: 255.0/255.0, blue: 205.0/255.0, alpha: 1.0)
+        cell.accessoryType = .checkmark
+        self.workoutIsCompleted[indexInProgress] = true
+        prefs.setValue(8, forKey: "indexInProgress")
+        prefs.synchronize()
     }
 }
