@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		6B119C4F67FF51BFCD535E25 /* Pods_Daily_Dose.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC6FE7225617ACB08C543DC4 /* Pods_Daily_Dose.framework */; };
 		8B1DE30A1E99B7D000F5ABBB /* UIBezierPath+SemiCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1DE3091E99B7D000F5ABBB /* UIBezierPath+SemiCircle.swift */; };
-		8B2760051CF7D58B00AC6513 /* WorkoutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC6199B1CDE514C00A84B62 /* WorkoutTableViewController.swift */; };
 		8B43F3471CF35B7B00AB305D /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B43F3461CF35B7B00AB305D /* Exercise.swift */; };
 		8B515A791E9535A30009A64E /* WorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B515A781E9535A30009A64E /* WorkoutViewController.swift */; };
 		8B5F3F551E81EB6B00A48786 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5F3F541E81EB6A00A48786 /* OptionsViewController.swift */; };
@@ -22,7 +21,6 @@
 		8BC6198A1CDE500D00A84B62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC619891CDE500D00A84B62 /* AppDelegate.swift */; };
 		8BC6198F1CDE500D00A84B62 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BC6198D1CDE500D00A84B62 /* Main.storyboard */; };
 		8BC619911CDE500D00A84B62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BC619901CDE500D00A84B62 /* Assets.xcassets */; };
-		8BC6199E1CDE53D200A84B62 /* WorkoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC6199D1CDE53D200A84B62 /* WorkoutTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,8 +41,6 @@
 		8BC619891CDE500D00A84B62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BC6198E1CDE500D00A84B62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8BC619901CDE500D00A84B62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8BC6199B1CDE514C00A84B62 /* WorkoutTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewController.swift; sourceTree = "<group>"; };
-		8BC6199D1CDE53D200A84B62 /* WorkoutTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewCell.swift; sourceTree = "<group>"; };
 		9B634E1A2D711690E58D5691 /* Pods-Daily Dose.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Daily Dose.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Daily Dose/Pods-Daily Dose.debug.xcconfig"; sourceTree = "<group>"; };
 		BC6FE7225617ACB08C543DC4 /* Pods_Daily_Dose.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Daily_Dose.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -121,8 +117,6 @@
 				8B515A781E9535A30009A64E /* WorkoutViewController.swift */,
 				8B1DE3091E99B7D000F5ABBB /* UIBezierPath+SemiCircle.swift */,
 				8BC6198D1CDE500D00A84B62 /* Main.storyboard */,
-				8BC6199B1CDE514C00A84B62 /* WorkoutTableViewController.swift */,
-				8BC6199D1CDE53D200A84B62 /* WorkoutTableViewCell.swift */,
 				8B6055BD1E832E9300C6350C /* BridgingHeader.h */,
 				8B5F3F541E81EB6A00A48786 /* OptionsViewController.swift */,
 				8B6447BA1E93EF3B00E7A277 /* ExerciseOptionsViewController.swift */,
@@ -257,9 +251,7 @@
 			files = (
 				8B515A791E9535A30009A64E /* WorkoutViewController.swift in Sources */,
 				8B43F3471CF35B7B00AB305D /* Exercise.swift in Sources */,
-				8BC6199E1CDE53D200A84B62 /* WorkoutTableViewCell.swift in Sources */,
 				8B1DE30A1E99B7D000F5ABBB /* UIBezierPath+SemiCircle.swift in Sources */,
-				8B2760051CF7D58B00AC6513 /* WorkoutTableViewController.swift in Sources */,
 				8B5F3F551E81EB6B00A48786 /* OptionsViewController.swift in Sources */,
 				8BC6198A1CDE500D00A84B62 /* AppDelegate.swift in Sources */,
 				8B6447BB1E93EF3B00E7A277 /* ExerciseOptionsViewController.swift in Sources */,

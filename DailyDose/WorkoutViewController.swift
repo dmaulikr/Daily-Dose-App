@@ -37,8 +37,8 @@ class WorkoutViewController: UIViewController, UIAlertViewDelegate, GADBannerVie
     
     let prefs = UserDefaults.standard
     var time = 60
-    var timePassed = 0
     let timeStart = 60
+    var timePassed = 0
     var timer = Timer()
     var isPaused = false
     var inProgress = false
@@ -242,6 +242,7 @@ class WorkoutViewController: UIViewController, UIAlertViewDelegate, GADBannerVie
             totalCompleted+=1
             prefs.setValue(totalCompleted, forKey: "totalCompleted")
             self.timeLabel.text = String(format:"Total Completed: %d", totalCompleted)
+            self.timeLabel.backgroundColor = UIColor.clear
             if(self.exerciseLabel.textColor == UIColor.black)
             {
                 self.timeLabel.textColor = UIColor.black
@@ -569,6 +570,10 @@ class WorkoutViewController: UIViewController, UIAlertViewDelegate, GADBannerVie
         default:
             break
         }
+        self.timeLabel.backgroundColor = self.view.backgroundColor
+        if(self.exerciseLabel.textColor == UIColor.black){
+            self.timeLabel.textColor = UIColor.black
+        }
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -592,10 +597,8 @@ class WorkoutViewController: UIViewController, UIAlertViewDelegate, GADBannerVie
     func changeCircleShape(secondsPassed: Int, circle: UILabel){
         
         let circle = circle
-        
-        //let centerVar = CGPoint.zero
         let centerVar = CGPoint(x: (circle.bounds.size.width)/2, y: (circle.bounds.size.height)/2)
-        let subtractionWeight = (2*M_PI)/60
+        let subtractionWeight = (2*M_PI)/Double(self.timeStart)
         let secondsPassed = Double(secondsPassed)
         let endAngleVar = CGFloat(-M_PI/2)
         let startAngleVar = CGFloat(-(M_PI/2)+secondsPassed*subtractionWeight)
