@@ -8,11 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		6B119C4F67FF51BFCD535E25 /* Pods_Daily_Dose.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC6FE7225617ACB08C543DC4 /* Pods_Daily_Dose.framework */; };
+		8B1DE30A1E99B7D000F5ABBB /* UIBezierPath+SemiCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1DE3091E99B7D000F5ABBB /* UIBezierPath+SemiCircle.swift */; };
 		8B2760051CF7D58B00AC6513 /* WorkoutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC6199B1CDE514C00A84B62 /* WorkoutTableViewController.swift */; };
 		8B43F3471CF35B7B00AB305D /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B43F3461CF35B7B00AB305D /* Exercise.swift */; };
+		8B515A791E9535A30009A64E /* WorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B515A781E9535A30009A64E /* WorkoutViewController.swift */; };
 		8B5F3F551E81EB6B00A48786 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5F3F541E81EB6A00A48786 /* OptionsViewController.swift */; };
+		8B6447BB1E93EF3B00E7A277 /* ExerciseOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6447BA1E93EF3B00E7A277 /* ExerciseOptionsViewController.swift */; };
 		8B9053C31CF53F2A0094D1A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B9053C11CF53F2A0094D1A3 /* LaunchScreen.storyboard */; };
 		8BA660FF1E809E9C0098D284 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA660FE1E809E9C0098D284 /* MainViewController.swift */; };
+		8BB967381E838D3E00D9F95E /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB967371E838D3E00D9F95E /* OpenAL.framework */; };
+		8BB9673A1E838D4800D9F95E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB967391E838D4800D9F95E /* AudioToolbox.framework */; };
+		8BB9673C1E838D4E00D9F95E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB9673B1E838D4E00D9F95E /* AVFoundation.framework */; };
 		8BC6198A1CDE500D00A84B62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC619891CDE500D00A84B62 /* AppDelegate.swift */; };
 		8BC6198F1CDE500D00A84B62 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BC6198D1CDE500D00A84B62 /* Main.storyboard */; };
 		8BC619911CDE500D00A84B62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BC619901CDE500D00A84B62 /* Assets.xcassets */; };
@@ -21,11 +27,18 @@
 
 /* Begin PBXFileReference section */
 		1D8BCEFBB8EE0D215BECBC3C /* Pods-Daily Dose.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Daily Dose.release.xcconfig"; path = "Pods/Target Support Files/Pods-Daily Dose/Pods-Daily Dose.release.xcconfig"; sourceTree = "<group>"; };
+		8B1DE3091E99B7D000F5ABBB /* UIBezierPath+SemiCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+SemiCircle.swift"; sourceTree = "<group>"; };
 		8B43F3461CF35B7B00AB305D /* Exercise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		8B515A781E9535A30009A64E /* WorkoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutViewController.swift; sourceTree = "<group>"; };
 		8B5F3F541E81EB6A00A48786 /* OptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
+		8B6055BD1E832E9300C6350C /* BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		8B6447BA1E93EF3B00E7A277 /* ExerciseOptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseOptionsViewController.swift; sourceTree = "<group>"; };
 		8B9053BF1CF53F150094D1A3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B9053C21CF53F2A0094D1A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8BA660FE1E809E9C0098D284 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		8BB967371E838D3E00D9F95E /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		8BB967391E838D4800D9F95E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		8BB9673B1E838D4E00D9F95E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		8BC619861CDE500D00A84B62 /* Daily Dose.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Daily Dose.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BC619891CDE500D00A84B62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BC6198E1CDE500D00A84B62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -41,6 +54,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BB9673C1E838D4E00D9F95E /* AVFoundation.framework in Frameworks */,
+				8BB9673A1E838D4800D9F95E /* AudioToolbox.framework in Frameworks */,
+				8BB967381E838D3E00D9F95E /* OpenAL.framework in Frameworks */,
 				6B119C4F67FF51BFCD535E25 /* Pods_Daily_Dose.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -51,6 +67,9 @@
 		0D16A4EA23368C105637681F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8BB9673B1E838D4E00D9F95E /* AVFoundation.framework */,
+				8BB967391E838D4800D9F95E /* AudioToolbox.framework */,
+				8BB967371E838D3E00D9F95E /* OpenAL.framework */,
 				BC6FE7225617ACB08C543DC4 /* Pods_Daily_Dose.framework */,
 			);
 			name = Frameworks;
@@ -65,11 +84,19 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8BB967361E838D2200D9F95E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		8BC6197D1CDE500D00A84B62 = {
 			isa = PBXGroup;
 			children = (
 				8BC619881CDE500D00A84B62 /* DailyDose */,
 				8BC619871CDE500D00A84B62 /* Products */,
+				8BB967361E838D2200D9F95E /* Supporting Files */,
 				16B8C1AA1568C978639A41A5 /* Pods */,
 				0D16A4EA23368C105637681F /* Frameworks */,
 			);
@@ -89,12 +116,16 @@
 				8B9053C11CF53F2A0094D1A3 /* LaunchScreen.storyboard */,
 				8B9053BF1CF53F150094D1A3 /* Info.plist */,
 				8BC619891CDE500D00A84B62 /* AppDelegate.swift */,
-				8BC6198D1CDE500D00A84B62 /* Main.storyboard */,
 				8BC619901CDE500D00A84B62 /* Assets.xcassets */,
 				8BA660FE1E809E9C0098D284 /* MainViewController.swift */,
+				8B515A781E9535A30009A64E /* WorkoutViewController.swift */,
+				8B1DE3091E99B7D000F5ABBB /* UIBezierPath+SemiCircle.swift */,
+				8BC6198D1CDE500D00A84B62 /* Main.storyboard */,
 				8BC6199B1CDE514C00A84B62 /* WorkoutTableViewController.swift */,
 				8BC6199D1CDE53D200A84B62 /* WorkoutTableViewCell.swift */,
+				8B6055BD1E832E9300C6350C /* BridgingHeader.h */,
 				8B5F3F541E81EB6A00A48786 /* OptionsViewController.swift */,
+				8B6447BA1E93EF3B00E7A277 /* ExerciseOptionsViewController.swift */,
 				8B43F3461CF35B7B00AB305D /* Exercise.swift */,
 			);
 			path = DailyDose;
@@ -224,11 +255,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B515A791E9535A30009A64E /* WorkoutViewController.swift in Sources */,
 				8B43F3471CF35B7B00AB305D /* Exercise.swift in Sources */,
 				8BC6199E1CDE53D200A84B62 /* WorkoutTableViewCell.swift in Sources */,
+				8B1DE30A1E99B7D000F5ABBB /* UIBezierPath+SemiCircle.swift in Sources */,
 				8B2760051CF7D58B00AC6513 /* WorkoutTableViewController.swift in Sources */,
 				8B5F3F551E81EB6B00A48786 /* OptionsViewController.swift in Sources */,
 				8BC6198A1CDE500D00A84B62 /* AppDelegate.swift in Sources */,
+				8B6447BB1E93EF3B00E7A277 /* ExerciseOptionsViewController.swift in Sources */,
 				8BA660FF1E809E9C0098D284 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -337,6 +371,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = BridgingHeader.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

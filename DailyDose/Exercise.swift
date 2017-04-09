@@ -20,4 +20,10 @@ class Exercise {
         self.workoutName = workoutName
         self.primaryMuscle = primaryMuscle
     }
+    
+    init(workoutName: String, primaryMuscle: String, workoutVideoLink: String){
+        self.workoutName = workoutName
+        self.primaryMuscle = primaryMuscle
+        self.workoutVideoLink = workoutVideoLink
+    }
 }

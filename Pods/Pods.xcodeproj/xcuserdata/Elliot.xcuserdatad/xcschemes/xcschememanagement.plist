@@ -9,7 +9,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>GoogleToolboxForMac.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Daily Dose.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>XCDYouTubeKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -17,12 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2C93C29A9409146486395475D7939CAB</key>
+		<key>00103D6C821BE85971C563025527BA5D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>38830187D9E171E7B43047ED06A08ADC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4291B5A6430B26231CF7C72DCB61D6F6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AC654F49D17C2FD79F962E6387A4706F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

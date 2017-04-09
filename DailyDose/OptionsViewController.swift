@@ -7,13 +7,20 @@
 //
 
 import UIKit
+import BubbleTransition
+import GoogleMobileAds
 
-class OptionsViewController: UIViewController {
+class OptionsViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
     @IBOutlet weak var adsButton: UIButton!
     @IBOutlet weak var exercisesButton: UIButton!
     @IBOutlet weak var soundButton: UIButton!
+    @IBOutlet var backgroundView: UIView!
+    @IBOutlet weak var bannerView: GADBannerView!
+    
     let prefs = UserDefaults.standard
+    let transition = BubbleTransition()
+
     
     @IBAction func didPressXButton(sender: AnyObject)
     {
@@ -40,6 +47,13 @@ class OptionsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        bannerView.adUnitID = "ca-app-pub-5914269485564261/8863098637"
+        bannerView.rootViewController = self
+        let request = GADRequest()
+        request.testDevices = [kGADSimulatorID]
+        bannerView.load(request)
+        
         let soundOption = prefs.bool(forKey: "soundOption")
         if(soundOption == true){
             self.soundButton.setTitle("Sound: Off", for: UIControlState.normal)
@@ -47,6 +61,10 @@ class OptionsViewController: UIViewController {
         else{
             self.soundButton.setTitle("Sound: On", for: UIControlState.normal)
         }
+        let redVar = CGFloat(arc4random()%200) / 255
+        let greenVar = CGFloat(arc4random()%200) / 255
+        let blueVar = CGFloat(arc4random()%200) / 255
+        self.view.backgroundColor = UIColor(red: redVar, green: greenVar, blue: blueVar, alpha: 1.0)
 
         // Do any additional setup after loading the view.
     }
@@ -56,15 +74,35 @@ class OptionsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let controller = segue.destination
+        controller.transitioningDelegate = self
+        controller.modalPresentationStyle = .custom
     }
-    */
+    
+    public func animationController(forPresented presented: UIViewController, presenting:
+        UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        transition.transitionMode = .present
+        
+        transition.startingPoint = exercisesButton.center
+        transition.bubbleColor = self.backgroundView.backgroundColor!;
+        
+        return transition
+    }
+    
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        transition.transitionMode = .dismiss
+        
+        transition.startingPoint = exercisesButton.center
+        transition.bubbleColor = self.backgroundView.backgroundColor!;
+        
+        return transition
+    }
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        NSLog("Ad Loaded.")
+        bannerView.isHidden = false
+    }
 
 }

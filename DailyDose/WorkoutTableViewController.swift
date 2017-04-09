@@ -34,7 +34,7 @@ class WorkoutTableViewController: UITableViewController {
     @IBAction func didPressCloseButton(sender:AnyObject){
         let alertController = UIAlertController(title: "Quitting Early?", message: "If you quit now, you'll lose all your progress on this workout!", preferredStyle: .alert)
         let indexInProgress = prefs.integer(forKey: "indexInProgress")
-
+        
         let cancelAction = UIAlertAction(title: "Quit", style: .destructive) { action in
             if(indexInProgress != 8)
             {
@@ -111,7 +111,7 @@ class WorkoutTableViewController: UITableViewController {
 
         cell.numberLabel.text = numberLabelString
         
-        cell.numberLabel.textColor = UIColor(red: 74.0/255.0, green: 133.0/255.0, blue: 187.0/255.0, alpha: 1.0)
+        //cell.numberLabel.textColor = UIColor(red: 74.0/255.0, green: 133.0/255.0, blue: 187.0/255.0, alpha: 1.0)
         cell.timerLabel.alpha = 0.0
         
         if(indexPath.row % 2) == 0
@@ -160,10 +160,10 @@ class WorkoutTableViewController: UITableViewController {
         }
         alertController.addAction(startAction)
         
-        let instructionsAction = UIAlertAction(title: "Instructions", style: .default) { action in
+        /*let instructionsAction = UIAlertAction(title: "Instructions", style: .default) { action in
             
         }
-        alertController.addAction(instructionsAction)
+        alertController.addAction(instructionsAction)*/
         
         self.present(alertController, animated: true) {
             self.tableView.deselectRow(at: indexPath, animated: false)
